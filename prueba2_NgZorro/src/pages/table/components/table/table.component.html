@@ -1,0 +1,70 @@
+<div>
+  <nz-spin nzTip="Loading..." [nzSpinning]="loading">
+    <div nz-row>
+      <div nz-col nzXs="16" nzSm="16" nzMd="16" nzLg="16" nzXl="16">
+        <form nz-form [formGroup]="searchForm">
+          <nz-form-item>
+            <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="name">Nombre de usuario</nz-form-label>
+            <nz-form-control [nzSm]="15" [nzXs]="24" [nzErrorTip]="titleErrorTip">
+              <input nz-input formControlName="name" id="name" />
+            </nz-form-control>
+            <ng-template #titleErrorTip let-control>
+              <ng-container *ngIf="control.hasError('required')">Este campo es obligatorio</ng-container>
+              <ng-container *ngIf="control.hasError('pattern')">formato de texto invalido</ng-container>
+            </ng-template>
+          </nz-form-item>
+        </form>
+      </div>
+      <div nz-col nzXs="8" nzSm="8" nzMd="8" nzLg="8" nzXl="8">
+        <button nz-button nzType="primary" (click)="validateAction()">
+          Buscar
+        </button>
+      </div>
+    </div>
+    <nz-table #table [nzSize]="'small'" [nzData]="users!" [nzLoading]="loading" [nzPageSize]="10"
+      [nzOuterBordered]="true">
+      <thead>
+        <tr>
+          <th *ngFor="let column of listOfColumns; let indexElement = index" [nzSortOrder]="column.sortOrder"
+            [nzSortFn]="column.sortFn" [nzSortDirections]="column.sortDirections"
+            [nzFilterMultiple]="column.filterMultiple" [nzFilters]="column.listOfFilter" [nzFilterFn]="column.filterFn"
+            nzAlign="center" [nzCustomFilter]="column.searchEnabled">
+            {{ column.name }}
+            <nz-filter-trigger *ngIf="column.searchEnabled" [(nzVisible)]="column.searchVisible"
+              [nzActive]="value.value.length > 0" [nzDropdownMenu]="menu">
+              <i nz-icon nzType="search"></i>
+            </nz-filter-trigger>
+            <nz-dropdown-menu #menu="nzDropdownMenu">
+              <div class="ant-table-filter-dropdown">
+                <div class="search-box">
+                  <input type="text" nz-input placeholder="Search name" (keyup)="column.search(value.value, table)"
+                    #value #key />
+                  <button nz-button nzSize="small" nzType="primary" class="search-button">
+                    Buscar
+                  </button>
+                  <button nz-button nzType="default" nzDanger nzSize="small"
+                    (click)="column.reset(value, indexElement, this, table)" class="danger">
+                    Limpiar
+                  </button>
+                </div>
+              </div>
+            </nz-dropdown-menu>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of table.data, let i = index">
+          <td nzBreakWord> {{ user.login }} </td>
+          <td> {{ user.id }} </td>
+          <td> {{ user.type }} </td>
+          <td> {{ user.score | number }} </td>
+          <td nzAlign="center" nzRight>
+            <button nz-button nzType="primary" (click)="openModal(user)">
+              Editar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </nz-spin>
+</div>

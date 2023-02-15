@@ -1,0 +1,54 @@
+<nz-spin [nzSpinning]="loading" nzTip="cargando...">
+  <form nz-form [formGroup]="form">
+    <div nz-row>
+      <div nz-col nzXs="8" nzSm="8" nzMd="8" nzLg="8" nzXl="8">
+        <img nz-image width="200px" height="200px" [nzSrc]="item?.avatar_url!" alt="" />
+      </div>
+      <div nz-col nzXs="16" nzSm="16" nzMd="16" nzLg="16" nzXl="16">
+        <nz-form-item>
+          <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="login">Nombre de usuario</nz-form-label>
+          <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="titleErrorTip">
+            <input nz-input formControlName="login" id="login" />
+          </nz-form-control>
+          <ng-template #titleErrorTip let-control>
+            <ng-container *ngIf="control.hasError('required')">Este campo es obligatorio</ng-container>
+            <ng-container *ngIf="control.hasError('pattern')">formato de texto invalido</ng-container>
+          </ng-template>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="id">Identificación </nz-form-label>
+          <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="titleErrorTip">
+            <input nz-input formControlName="id" id="id" />
+          </nz-form-control>
+          <ng-template #titleErrorTip let-control>
+            <ng-container *ngIf="control.hasError('required')">Este campo es obligatorio</ng-container>
+            <ng-container *ngIf="control.hasError('pattern')">formato de texto invalido</ng-container>
+          </ng-template>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="score">Puntuación</nz-form-label>
+          <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="titleErrorTip">
+            <input nz-input formControlName="score" id="score" />
+          </nz-form-control>
+          <ng-template #titleErrorTip let-control>
+            <ng-container *ngIf="control.hasError('required')">Este campo es obligatorio</ng-container>
+            <ng-container *ngIf="control.hasError('pattern')">formato de texto invalido</ng-container>
+          </ng-template>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="type">Tipo de usuario</nz-form-label>
+          <nz-form-control [nzSm]="16" [nzXs]="24" [nzErrorTip]="titleErrorTip">
+            <input nz-input formControlName="type" id="type" />
+          </nz-form-control>
+          <ng-template #titleErrorTip let-control>
+            <ng-container *ngIf="control.hasError('required')">Este campo es obligatorio</ng-container>
+            <ng-container *ngIf="control.hasError('pattern')">formato de texto invalido</ng-container>
+          </ng-template>
+        </nz-form-item>
+      </div>
+    </div>
+  </form>
+</nz-spin>
+<div *nzModalFooter>
+  <button nz-button nzType="default" (click)="destroyModal()">Cerrar</button>
+</div>
